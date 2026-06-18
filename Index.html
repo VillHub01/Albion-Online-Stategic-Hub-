@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albion Online Strategic Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom scrollbar untuk tampilan yang lebih rapi */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        .smooth-transition {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-normal tracking-normal">
+
+    <!-- Header -->
+    <header class="bg-indigo-900 text-white p-6 shadow-md">
+        <div class="container mx-auto flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold"><i class="fa-solid fa-shield-halved mr-2"></i>Albion Strategic Hub</h1>
+                <p class="text-sm mt-1 text-indigo-200">Panduan & Alat Bantu Strategis V4.0</p>
+            </div>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#kalkulator" class="hover:text-indigo-300">Kalkulator Pasar</a>
+                <a href="#build" class="hover:text-indigo-300">Build Aspect</a>
+                <a href="#strategi" class="hover:text-indigo-300">Strategi & Tips</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Header Navigation -->
+<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        
+        <!-- Logo Huruf A (Pintu Masuk Admin) -->
+        <a href="admin.html" class="flex items-center space-x-3 group focus:outline-none" title="Masuk ke Admin Dashboard">
+            <!-- Kotak Logo Mini -->
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md shadow-indigo-200 transform group-hover:scale-105 group-hover:bg-indigo-700 transition duration-200 ease-in-out">
+                A
+            </div>
+            <!-- Teks Brand -->
+            <span class="font-black text-xl tracking-tight text-gray-800 group-hover:text-indigo-600 transition duration-200">
+                AO<span class="text-indigo-600 group-hover:text-indigo-700">Hub</span>
+            </span>
+        </a>
+
+        <!-- Menu Navigasi Lainnya (Jika Ada) -->
+        <nav class="hidden md:flex space-x-6 text-sm font-semibold text-gray-600">
+            <a href="#kalkulator" class="hover:text-indigo-600 transition">Kalkulator</a>
+            <a href="#builds" class="hover:text-indigo-600 transition">Builds</a>
+            <a href="#tips" class="hover:text-indigo-600 transition">Strategi</a>
+        </nav>
+
+    </div>
+</header>
+
+<!-- Panel Meta Update (Patch Notes) -->
+             <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-6 mb-6 rounded shadow-sm">
+                    <div class="flex items-start">
+        <div class="flex-shrink-0">
+            <i class="fa-solid fa-bullhorn text-yellow-600 text-xl mt-1"></i>
+        </div>
+        <div class="ml-3">
+            <h3 class="text-md font-bold text-yellow-800">Meta Update Terbaru - Patch 22.1</h3>
+            <div class="mt-1 text-sm text-yellow-700">
+                <p><strong>Perhatian:</strong> Terdapat perubahan minor pada *cooldown* <em>Bloodletter</em> dan penyesuaian regenerasi <em>Scholar Cowl</em>. Pastikan untuk menyesuaikan rotasi *skill* saat melakukan <em>farming</em> maupun <em>escaping</em>!</p>
+            </div>
+        </div>
+    </div>
+              </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+
+        <!-- 1. Kalkulator Pasar Kompleks -->
+        <section id="kalkulator" class="mb-12 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-800 border-b pb-2"><i class="fa-solid fa-calculator mr-2"></i>1. Kalkulator Pasar Kompleks (Refining Pro)</h2>
+            <p class="mb-4 text-gray-600">Gunakan rumus ini untuk menghitung profitabilitas sebelum melakukan aksi pasar. Pastikan Anda tidak melakukan Instant Trade!</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Form Input -->
+                <div class="bg-gray-50 p-4 rounded border">
+                    <h3 class="font-semibold mb-3">Input Data</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Harga Beli Bahan Baku (per unit)</label>
+                            <input type="number" id="bahanBaku" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:border-indigo-500 focus:ring-indigo-500" placeholder="Contoh: 150">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Jumlah Item (Quantity)</label>
+                            <input type="number" id="jumlahItem" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:border-indigo-500 focus:ring-indigo-500" placeholder="Contoh: 1000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Biaya Proses / UCV (per item)</label>
+                            <input type="number" id="biayaProses" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:border-indigo-500 focus:ring-indigo-500" placeholder="Contoh: 374">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Harga Jual (per unit)</label>
+                            <input type="number" id="hargaJual" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:border-indigo-500 focus:ring-indigo-500" placeholder="Contoh: 485">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Pajak Pasar (%)</label>
+                            <input type="number" id="pajakPasar" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:border-indigo-500 focus:ring-indigo-500" value="6.5" step="0.1">
+                            <span class="text-xs text-gray-500">Standar dengan Premium: 6.5%. Tanpa Premium: 10.5%. (Pajak Setup + Pajak Jual)</span>
+                        </div>
+                        <button onclick="hitungProfit()" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 smooth-transition">Hitung Profitabilitas</button>
+                    </div>
+                </div>
+
+                <!-- Hasil Kalkulasi -->
+                <div class="bg-indigo-50 p-4 rounded border border-indigo-100">
+                    <h3 class="font-semibold mb-3 text-indigo-900">Hasil Analisis</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                            <span class="font-medium text-gray-700">Total HPP:</span>
+                            <span id="hasilHPP" class="font-bold text-gray-900">0 Silver</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                            <span class="font-medium text-gray-700">Total Harga Jual (Kotor):</span>
+                            <span id="hasilJualKotor" class="font-bold text-gray-900">0 Silver</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                            <span class="font-medium text-gray-700">Keuntungan Bersih (Setelah Pajak):</span>
+                            <span id="hasilProfit" class="font-bold text-xl text-green-600">0 Silver</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-white rounded shadow-sm">
+                            <span class="font-medium text-gray-700">Persentase Efisiensi (ROI):</span>
+                            <span id="hasilROI" class="font-bold text-blue-600">0 %</span>
+                        </div>
+                        <!-- Tombol Bagikan ke WhatsApp -->
+                        <button onclick="shareToWhatsApp()" class="w-full mt-4 bg-green-500 text-white font-bold py-3 px-4 rounded flex justify-center items-center hover:bg-green-600 focus:outline-none transition duration-200 shadow-md">
+                            <i class="fa-brands fa-whatsapp text-xl mr-2"></i> Bagikan Hasil via WhatsApp
+                        </button>
+
+                        <div id="pesanKalkulator" class="mt-4 p-3 rounded text-sm hidden">
+                            <!-- Pesan dinamis akan muncul di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Build All Aspect -->
+        <section id="build" class="mb-12 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-800 border-b pb-2"><i class="fa-solid fa-khanda mr-2"></i>2. Build All Aspect (Interaktif)</h2>
+            
+            <div class="space-y-6">
+                <!-- Build Item -->
+                <div class="border rounded-lg overflow-hidden">
+                    <button class="w-full bg-gray-100 p-4 text-left font-bold text-lg flex justify-between items-center hover:bg-gray-200 focus:outline-none" onclick="toggleBuild('build-pvp')">
+                        <span>PVP (Solo Mists/Corrupted)</span>
+                        <i class="fa-solid fa-chevron-down" id="icon-build-pvp"></i>
+                    </button>
+                    <div id="build-pvp" class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kepala', 'Hunter Hood', 'Skill \'Retaliate\' memberikan refleksi damage krusial saat musuh mengeluarkan burst skill.')">
+                            <div class="flex items-center">
+                                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-helmet-safety"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kepala</h4>
+                                    <p class="text-lg text-indigo-700">Hunter Hood</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Dada', 'Assassin Jacket', 'Skill \'Ambush\' memberikan invisibilitas untuk mereset pertarungan atau melarikan diri dengan aman.')">
+                            <div class="flex items-center">
+                                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shirt"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Dada</h4>
+                                    <p class="text-lg text-indigo-700">Assassin Jacket</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kaki', 'Soldier Boots', 'Skill \'Wanderlust\' memberikan kecepatan gerak tinggi yang terus bertambah untuk memburu musuh atau melarikan diri.')">
+                            <div class="flex items-center">
+                                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shoe-prints"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kaki</h4>
+                                    <p class="text-lg text-indigo-700">Soldier Boots</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Senjata', 'Carving Sword', 'Memberikan armor reduction (shred) yang sangat kuat untuk menembus pertahanan lawan, ditambah mobilitas yang baik.')">
+                            <div class="flex items-center">
+                                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-sword"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-700">Senjata</h4>
+                                    <p class="text-lg text-indigo-700">Carving Sword</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Build PVE -->
+                <div class="border rounded-lg overflow-hidden mt-4">
+    <button class="w-full bg-gray-100 p-4 text-left font-bold text-lg flex justify-between items-center hover:bg-gray-200 focus:outline-none" onclick="toggleBuild('build-pve')">
+        <span>PVE (Speed Clear Fame Farming)</span>
+        <i class="fa-solid fa-chevron-down" id="icon-build-pve"></i>
+    </button>
+    <div id="build-pve" class="hidden p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kepala', 'Scholar Cowl', 'Skill \'Energy Shield\' memulihkan mana setiap kali menerima damage dan memberi bonus defense. Sangat penting untuk sustain.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kepala</h4>
+                    <p class="text-lg text-indigo-700">Scholar Cowl</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Dada', 'Cleric Robe', 'Skill \'Everlasting Spirit\' memberikan invulnerability (kebal) 3 detik dan boost damage 20% untuk melawan kumpulan mob.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shirt"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Dada</h4>
+                    <p class="text-lg text-indigo-700">Cleric Robe</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kaki', 'Any Leather Shoes', 'Gunakan skill aktif \'Refreshing Sprint\' untuk mengurangi cooldown semua skill agar rotasi damage lebih cepat.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shoe-prints"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kaki</h4>
+                    <p class="text-lg text-indigo-700">Leather Shoes</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Senjata', 'Light Crossbow + Cryptcandle', 'Memberikan daya ledak AoE (Area) yang sangat tinggi untuk membersihkan dungeon dengan sangat cepat.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-crosshairs"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Senjata & Offhand</h4>
+                    <p class="text-lg text-indigo-700">Light Crossbow</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+               <!-- Build Gathering -->
+                <div class="border rounded-lg overflow-hidden mt-4">
+    <button class="w-full bg-gray-100 p-4 text-left font-bold text-lg flex justify-between items-center hover:bg-gray-200 focus:outline-none" onclick="toggleBuild('build-gathering')">
+        <span>Gathering (Survival & Escape)</span>
+        <i class="fa-solid fa-chevron-down" id="icon-build-gathering"></i>
+    </button>
+    <div id="build-gathering" class="hidden p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kepala', 'Miner Cap', 'Skill \'Motivating Worker\' menghapus efek slow dan memberikan kebal CC sesaat. Tombol panik pertama saat di-dismount.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kepala</h4>
+                    <p class="text-lg text-indigo-700">Miner Cap</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Dada', 'Miner Garb', 'Skill \'Wind Shield\' memantulkan musuh yang mencoba mendekat dan meningkatkan armor secara drastis.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shirt"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Dada</h4>
+                    <p class="text-lg text-indigo-700">Miner Garb</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Kaki', 'Miner Workboots', 'Skill \'Flee\' memberikan tambahan kecepatan lari yang masif (+120%) serta kapasitas beban ekstra agar tidak lambat.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-shoe-prints"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Perlengkapan Kaki</h4>
+                    <p class="text-lg text-indigo-700">Miner Workboots</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 border rounded p-3 cursor-pointer hover:shadow-md smooth-transition" onclick="showBuildDetail('Senjata', 'Bloodletter + Mistcaller', 'Gunakan dua skill dash dari Bloodletter hanya untuk kabur, dibantu Mistcaller untuk mempercepat cooldown skill tersebut.')">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-2 rounded mr-3 text-indigo-600"><i class="fa-solid fa-person-running"></i></div>
+                <div>
+                    <h4 class="font-bold text-sm text-gray-700">Senjata & Offhand</h4>
+                    <p class="text-lg text-indigo-700">Bloodletter</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <!-- Modal untuk Detail Build -->
+                <div id="buildModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+                    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl transform transition-all">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="modalSlot" class="text-sm font-bold text-gray-500 uppercase">Slot</h3>
+                            <button onclick="closeBuildModal()" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark text-xl"></i></button>
+                        </div>
+                        <h2 id="modalItem" class="text-2xl font-bold text-indigo-800 mb-2">Item Name</h2>
+                        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded mt-4">
+                            <h4 class="font-bold text-indigo-900 mb-1"><i class="fa-solid fa-lightbulb mr-2"></i>Alasan Penggunaan:</h4>
+                            <p id="modalReason" class="text-gray-700 text-sm leading-relaxed">Penjelasan akan muncul di sini.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3 & 4. Strategi & Zonasi -->
+        <section id="strategi" class="mb-12 grid md:grid-cols-2 gap-6">
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-800 border-b pb-2"><i class="fa-solid fa-coins mr-2"></i>3. Strategi Perputaran Pasar</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-arrow-right-arrow-left mt-1 text-indigo-500 mr-3"></i>
+                        <div>
+                            <span class="font-bold block text-gray-800">Arbitrase Pasar</span>
+                            <span class="text-sm text-gray-600">
+                              <p><bold>Penjelasan Mendalam:</bold> Setiap kota memiliki spesialisasi crafting yang berbeda. <bold><em>contohnya</em></bold>, Martlock memberikan bonus <em>refining</em> untuk hide, sementara Bridgewatch untuk rock. Barang hasil crafting akan murah di kota asalnya karena suplai melimpah, namun mahal di kota lain yang membutuhkan barang tersebut untuk leveling atau PvP.</p>
+                                 <br>
+                               Saran: Gunakan situs pihak ketiga seperti Albion Online Data Project untuk melacak harga antar kota secara real-time. Jangan menjual barang secara langsung (Sell Instant) di pasar, karena pajak dan selisih harganya akan memakan profit Anda. Gunakan Sell Order untuk menaruh harga sesuai keinginan Anda.
+                              </span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-chart-line mt-1 text-indigo-500 mr-3"></i>
+                        <div>
+                            <span class="font-bold block text-gray-800">Analisis Tren</span>
+                            <span class="text-sm text-gray-600">Harga dipengaruhi waktu server. Beli saat jam sepi, jual saat jam ramai untuk memaksimalkan margin.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-800 border-b pb-2"><i class="fa-solid fa-map-location-dot mr-2"></i>4. Panduan Zonasi</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="inline-block w-3 h-3 rounded-full bg-blue-500 mt-1 mr-3"></span>
+                        <div>
+                            <span class="font-bold block text-gray-800">Zona Aman (Biru/Kuning)</span>
+                            <span class="text-sm text-gray-600">Pelatihan mekanik PvP dan testing build tanpa risiko kehilangan item (hanya drop durability).</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-3 h-3 rounded-full bg-red-600 mt-1 mr-3 animate-pulse"></span>
+                        <div>
+                            <span class="font-bold block text-gray-800">Zona Lethal (Merah/Hitam)</span>
+                            <span class="text-sm text-gray-600">Risiko <em>full loot</em> (kehilangan semua barang). Area utama untuk <em>fame farming</em> dan <em>resource</em> tier tinggi.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="inline-block w-3 h-3 rounded-full bg-purple-500 mt-1 mr-3"></span>
+                        <div>
+                            <span class="font-bold block text-gray-800">Mists & Roads of Avalon</span>
+                            <span class="text-sm text-gray-600">Area dinamis untuk aktivitas solo/duo dengan imbalan tinggi dan jalur logistik rahasia.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- 5. Focus Points -->
+        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-800 border-b pb-2"><i class="fa-solid fa-bullseye mr-2"></i>5. Simulasi Penggunaan Focus Points</h2>
+            <p class="mb-4 text-gray-600">Gunakan tabel ini untuk mengalokasikan Focus Points harian Anda secara efisien:</p>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-4 border-b text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aktivitas</th>
+                            <th class="py-3 px-4 border-b text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Prioritas</th>
+                            <th class="py-3 px-4 border-b text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Alasan & Rekomendasi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 whitespace-nowrap font-bold text-gray-800">Refining</td>
+                            <td class="py-3 px-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tinggi</span></td>
+                            <td class="py-3 px-4 text-sm text-gray-600">Profit paling stabil, risiko rendah. Sangat direkomendasikan untuk pemain dengan modal menengah ke atas yang ingin perputaran pasti.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 whitespace-nowrap font-bold text-gray-800">Crafting</td>
+                            <td class="py-3 px-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Menengah</span></td>
+                            <td class="py-3 px-4 text-sm text-gray-600">Disarankan hanya pada item volume tinggi (seperti gear PvP meta T4.1) untuk memastikan perputaran modal cepat.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 whitespace-nowrap font-bold text-gray-800">Farming</td>
+                            <td class="py-3 px-4 whitespace-nowrap"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Rendah / Stabil</span></td>
+                            <td class="py-3 px-4 text-sm text-gray-600">Cocok untuk pemain santai yang mencari pendapatan pasif harian tanpa risiko fluktuasi pasar atau ganking.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. Tips & Trik -->
+        <section class="mb-12 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-800 border-b pb-2"><i class="fa-solid fa-list-check mr-2"></i>6. Tips & Trik Lengkap</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="p-4 border rounded bg-gray-50 hover:bg-white hover:shadow-md smooth-transition">
+                    <h3 class="font-bold text-indigo-700 mb-2"><i class="fa-solid fa-horse-head mr-2"></i>Manajemen Mount</h3>
+                    <p class="text-sm text-gray-600">Gunakan mount dengan <em>escape skill</em> (seperti Spectral Direboar) daripada hanya mengandalkan armor tebal saat membawa barang berharga di zona merah/hitam.</p>
+                </div>
+                <div class="p-4 border rounded bg-gray-50 hover:bg-white hover:shadow-md smooth-transition">
+                    <h3 class="font-bold text-indigo-700 mb-2"><i class="fa-solid fa-users mr-2"></i>Trading Efisien</h3>
+                    <p class="text-sm text-gray-600">Gunakan karakter Alt (akun cadangan) yang ditempatkan di berbagai kota untuk memantau harga pasar secara real-time tanpa harus bergerak fisik memakan waktu.</p>
+                </div>
+                <div class="p-4 border rounded bg-gray-50 hover:bg-white hover:shadow-md smooth-transition">
+                    <h3 class="font-bold text-indigo-700 mb-2"><i class="fa-solid fa-star mr-2"></i>Fame Farming</h3>
+                    <p class="text-sm text-gray-600">Selalu gunakan gear dengan tier rendah (misal 4.1 atau 5.0) namun pastikan <em>mastery/spec</em> Anda tinggi untuk meminimalisir risiko kerugian finansial saat terbunuh ganker.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white p-6 text-center">
+        <p class="text-sm text-gray-400">© 2026 Albion Online Strategic Hub. Dibangun untuk efisiensi maksimal.</p>
+    </footer>
+
+    <script>
+        // Logika Kalkulator Pasar
+        function hitungProfit() {
+            // Ambil nilai dari input
+            const bahanBaku = parseFloat(document.getElementById('bahanBaku').value) || 0;
+            const jumlahItem = parseFloat(document.getElementById('jumlahItem').value) || 0;
+            const biayaProses = parseFloat(document.getElementById('biayaProses').value) || 0;
+            const hargaJual = parseFloat(document.getElementById('hargaJual').value) || 0;
+            const pajakPasarPersen = parseFloat(document.getElementById('pajakPasar').value) || 0;
+
+            if(bahanBaku === 0 || jumlahItem === 0) {
+                alert("Mohon masukkan Harga Bahan Baku dan Jumlah Item.");
+                return;
+            }
+
+            // Perhitungan
+            const totalBiayaBahan = bahanBaku * jumlahItem;
+            const totalBiayaProses = biayaProses * jumlahItem; // Asumsi UCV per item
+            const hpp = totalBiayaBahan + totalBiayaProses;
+
+            const totalJualKotor = hargaJual * jumlahItem;
+            const potonganPajak = totalJualKotor * (pajakPasarPersen / 100);
+            const keuntunganBersih = (totalJualKotor - potonganPajak) - hpp;
+            
+            let roi = 0;
+            if (hpp > 0) {
+                roi = (keuntunganBersih / hpp) * 100;
+            }
+
+            // Format angka ke currency lokal (Silver)
+            const formatSilver = new Intl.NumberFormat('id-ID');
+
+            // Tampilkan hasil
+            document.getElementById('hasilHPP').innerText = formatSilver.format(Math.round(hpp)) + " Silver";
+            document.getElementById('hasilJualKotor').innerText = formatSilver.format(Math.round(totalJualKotor)) + " Silver";
+            
+            const elProfit = document.getElementById('hasilProfit');
+            elProfit.innerText = formatSilver.format(Math.round(keuntunganBersih)) + " Silver";
+            
+            const elROI = document.getElementById('hasilROI');
+            elROI.innerText = roi.toFixed(2) + " %";
+
+            // Ubah warna berdasarkan profit/rugi
+            const elPesan = document.getElementById('pesanKalkulator');
+            elPesan.classList.remove('hidden');
+
+            if (keuntunganBersih > 0) {
+                elProfit.className = "font-bold text-xl text-green-600";
+                if(roi >= 10) {
+                    elROI.className = "font-bold text-green-600";
+                    elPesan.className = "mt-4 p-3 rounded text-sm bg-green-100 text-green-800 border border-green-200";
+                    elPesan.innerHTML = "<i class='fa-solid fa-check-circle mr-1'></i> <strong>Sangat Menguntungkan!</strong> Margin di atas 10%. Segera eksekusi melalui Buy/Sell Order.";
+                } else {
+                    elROI.className = "font-bold text-yellow-600";
+                    elPesan.className = "mt-4 p-3 rounded text-sm bg-yellow-100 text-yellow-800 border border-yellow-200";
+                    elPesan.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-1'></i> <strong>Profit Tipis.</strong> Pertimbangkan waktu dan risiko transportasi sebelum mengeksekusi.";
+                }
+            } else {
+                elProfit.className = "font-bold text-xl text-red-600";
+                elROI.className = "font-bold text-red-600";
+                elPesan.className = "mt-4 p-3 rounded text-sm bg-red-100 text-red-800 border border-red-200";
+                elPesan.innerHTML = "<i class='fa-solid fa-circle-xmark mr-1'></i> <strong>Rugi (Boncos)!</strong> Jangan lakukan crafting/refining dengan harga pasar saat ini.";
+            }
+        }
+
+        // Logika Accordion Build
+        function toggleBuild(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                el.classList.add('hidden');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        // Modal Logika
+        function showBuildDetail(slot, item, reason) {
+            document.getElementById('modalSlot').innerText = slot;
+            document.getElementById('modalItem').innerText = item;
+            document.getElementById('modalReason').innerText = reason;
+            document.getElementById('buildModal').classList.remove('hidden');
+        }
+
+        function closeBuildModal() {
+            document.getElementById('buildModal').classList.add('hidden');
+        }
+
+        // Tutup modal jika klik di luar area modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('buildModal');
+            if (event.target == modal) {
+                closeBuildModal();
+            }
+        }
+
+        // Fungsi untuk membagikan hasil kalkulasi ke WhatsApp
+        function shareToWhatsApp() {
+    // Mengambil nilai hasil kalkulasi.
+    // Pastikan ID 'hasil-kalkulasi' sesuai dengan ID elemen tempat hasil dari fungsi hitungPajak() muncul.
+    // Jika belum ada teks, kita berikan teks default.
+              let elemenHasil = document.getElementById('hasil-kalkulasi');
+              let teksHasil = elemenHasil && elemenHasil.innerText !== "" 
+                    ? elemenHasil.innerText 
+                    : "Ayo cek prediksi profit dan strategi Albion Online terbaru!";
+
+    // Merangkai pesan yang akan dikirim
+               let pesan = `📊 *Albion Strategy Hub* 📊\n\nSaya baru saja mengecek pasar:\n${teksHasil}\n\nKuy cek detailnya dan siapkan gear!`;
+
+    // Mengubah spasi dan karakter khusus menjadi format URL
+              let urlWhatsApp = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
+
+    // Membuka tab/aplikasi WhatsApp
+                window.open(urlWhatsApp, '_blank');
+              }
+
+    </script>
+</body>
+</html>
