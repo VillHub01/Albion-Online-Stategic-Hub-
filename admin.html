@@ -23,6 +23,28 @@
     </div>
 
     <!-- Main Dashboard Screen (Hidden by default) -->
+              <!-- Konfigurasi GitHub API (Hanya diisi sekali) -->
+<div class="bg-indigo-50 border border-indigo-200 rounded-lg shadow p-6 mb-6">
+    <h2 class="text-lg font-bold text-indigo-900 mb-4 border-b pb-2"><i class="fa-brands fa-github mr-2"></i>Konfigurasi Auto-Save GitHub</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Username GitHub</label>
+            <input type="text" id="gh-username" class="mt-1 block w-full p-2 border rounded border-gray-300 shadow-sm text-sm" placeholder="VillHub01">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Nama Repository</label>
+            <input type="text" id="gh-repo" class="mt-1 block w-full p-2 border rounded border-gray-300 shadow-sm text-sm" placeholder="albion-hub">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">GitHub Personal Token (PAT)</label>
+            <input type="password" id="gh-token" class="mt-1 block w-full p-2 border rounded border-gray-300 shadow-sm text-sm" placeholder="masukan token">
+        </div>
+    </div>
+    <p class="text-xs text-indigo-700 mt-2"><i class="fa-solid fa-info-circle mr-1"></i> Data ini disimpan aman secara lokal di browser Anda, bukan di server luar.</p>
+</div>
+    
+              
+    
     <div id="dashboard-screen" class="hidden min-h-screen flex flex-col">
         <header class="bg-indigo-800 text-white p-4 shadow-md flex justify-between items-center">
             <h1 class="text-xl font-bold"><i class="fa-solid fa-gauge mr-2"></i>Albion Hub Admin Dashboard</h1>
@@ -94,14 +116,13 @@
                 </div>
             </div>
 
-            <!-- Action Button -->
-            <div class="flex justify-end mb-12">
-                <button onclick="generateAndDownloadJSON()" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 shadow flex items-center transition">
-                    <i class="fa-solid fa-download mr-2"></i> Generate & Unduh data.json
-                </button>
-            </div>
-        </main>
-    </div>
+            <!-- Action Button Baru -->
+<div class="flex justify-end mb-12">
+    <button onclick="saveToGitHub()" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 shadow flex items-center transition">
+        <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Simpan Langsung ke GitHub
+    </button>
+</div>
+
 
     <script>
         let currentData = {};
@@ -149,31 +170,110 @@
                 .catch(err => console.error("Gagal memuat data.json bawaan:", err));
         }
 
-        // Menyusun kembali inputan menjadi file JSON baru lalu mengunduhnya
-        function generateAndDownloadJSON() {
-            currentData.patch_notes.title = document.getElementById('patch-title').value;
-            currentData.patch_notes.description = document.getElementById('patch-desc').value;
-            currentData.calculator_settings.default_market_tax = parseFloat(document.getElementById('calc-tax').value);
+        // Memuat data konfigurasi GitHub saat login berhasil
+function loadCurrentData() {
+    // Ambil kredensial yang tersimpan di browser (jika ada)
+    if(localStorage.getItem('gh_username')) document.getElementById('gh-username').value = localStorage.getItem('gh_username');
+    if(localStorage.getItem('gh_repo')) document.getElementById('gh-repo').value = localStorage.getItem('gh_repo');
+    if(localStorage.getItem('gh_token')) document.getElementById('gh-token').value = localStorage.getItem('gh_token');
+
+    // Mengambil file data.json bawaan
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            currentData = data;
+            document.getElementById('patch-title').value = data.patch_notes.title;
+            document.getElementById('patch-desc').value = data.patch_notes.description;
+            document.getElementById('calc-tax').value = data.calculator_settings.default_market_tax;
             
-            currentData.builds.pvp.senjata_name = document.getElementById('pvp-senjata-name').value;
-            currentData.builds.pvp.senjata_reason = document.getElementById('pvp-senjata-reason').value;
-            currentData.builds.pvp.kepala_name = document.getElementById('pvp-kepala-name').value;
-            currentData.builds.pvp.kepala_reason = document.getElementById('pvp-kepala-reason').value;
+            document.getElementById('pvp-senjata-name').value = data.builds.pvp.senjata_name;
+            document.getElementById('pvp-senjata-reason').value = data.builds.pvp.senjata_reason;
+            document.getElementById('pvp-kepala-name').value = data.builds.pvp.kepala_name;
+            document.getElementById('pvp-kepala-reason').value = data.builds.pvp.kepala_reason;
 
-            currentData.builds.pve.senjata_name = document.getElementById('pve-senjata-name').value;
-            currentData.builds.pve.senjata_reason = document.getElementById('pve-senjata-reason').value;
-            currentData.builds.pve.kepala_name = document.getElementById('pve-kepala-name').value;
-            currentData.builds.pve.kepala_reason = document.getElementById('pve-kepala-reason').value;
+            document.getElementById('pve-senjata-name').value = data.builds.pve.senjata_name;
+            document.getElementById('pve-senjata-reason').value = data.builds.pve.senjata_reason;
+            document.getElementById('pve-kepala-name').value = data.builds.pve.kepala_name;
+            document.getElementById('pve-kepala-reason').value = data.builds.pve.kepala_reason;
+        })
+        .catch(err => console.error("Gagal memuat data.json:", err));
+}
 
-            // Proses Download otomatis ke komputer/HP
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "data.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+// FUNGSI UTAMA: Save Otomatis Menggunakan GitHub API
+async function saveToGitHub() {
+    const username = document.getElementById('gh-username').value.trim();
+    const repo = document.getElementById('gh-repo').value.trim();
+    const token = document.getElementById('gh-token').value.trim();
+
+    if (!username || !repo || !token) {
+        alert("Mohon lengkapi data konfigurasi GitHub Anda!");
+        return;
+    }
+
+    // Simpan kredensial ke localStorage agar tidak perlu ngetik lagi besok-besok
+    localStorage.setItem('gh_username', username);
+    localStorage.setItem('gh_repo', repo);
+    localStorage.setItem('gh_token', token);
+
+    // Update objek data dari inputan form
+    currentData.patch_notes.title = document.getElementById('patch-title').value;
+    currentData.patch_notes.description = document.getElementById('patch-desc').value;
+    currentData.calculator_settings.default_market_tax = parseFloat(document.getElementById('calc-tax').value);
+    
+    currentData.builds.pvp.senjata_name = document.getElementById('pvp-senjata-name').value;
+    currentData.builds.pvp.senjata_reason = document.getElementById('pvp-senjata-reason').value;
+    currentData.builds.pvp.kepala_name = document.getElementById('pvp-kepala-name').value;
+    currentData.builds.pvp.kepala_reason = document.getElementById('pvp-kepala-reason').value;
+
+    currentData.builds.pve.senjata_name = document.getElementById('pve-senjata-name').value;
+    currentData.builds.pve.senjata_reason = document.getElementById('pve-senjata-reason').value;
+    currentData.builds.pve.kepala_name = document.getElementById('pve-kepala-name').value;
+    currentData.builds.pve.kepala_reason = document.getElementById('pve-kepala-reason').value;
+
+    const url = `https://api.github.com/repos/${username}/${repo}/contents/data.json`;
+
+    try {
+        // Langkah 1: Ambil kode 'SHA' dari file data.json yang lama (Wajib untuk proses update di GitHub)
+        const getRes = await fetch(url, {
+            headers: { 'Authorization': `token ${token}` }
+        });
+        
+        let sha = "";
+        if (getRes.ok) {
+            const getData = await getRes.json();
+            sha = getData.sha;
         }
+
+        // Langkah 2: Ubah data JSON kita menjadi format Base64 (Syarat wajib API GitHub)
+        const jsonString = JSON.stringify(currentData, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+        // Langkah 3: Tembak PUT request untuk menimpa file di GitHub
+        const putRes = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: "Update otomatis via Admin Dashboard",
+                content: base64Content,
+                sha: sha
+            })
+        });
+
+        if (putRes.ok) {
+            alert("🎉 Mantap! Data berhasil disimpan langsung ke GitHub. Tunggu sekitar 1 menit, GitHub Pages akan memperbarui halaman utama website Anda secara otomatis!");
+        } else {
+            const errData = await putRes.json();
+            alert("Gagal menyimpan: " + errData.message);
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Terjadi kesalahan jaringan atau kendala teknis.");
+    }
+                }
+                
     </script>
 </body>
 </html>
