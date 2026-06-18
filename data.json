@@ -1,0 +1,42 @@
+{
+  "patch_notes": {
+    "title": "Meta Update Terbaru - Patch 22.1",
+    "description": "Terdapat perubahan minor pada cooldown Bloodletter dan penyesuaian regenerasi Scholar Cowl. Pastikan untuk menyesuaikan rotasi skill saat melakukan farming maupun escaping!"
+  },
+  "calculator_settings": {
+    "default_market_tax": 6.5
+  },
+  "builds": {
+    "pvp": {
+      "kepala_name": "Hunter Hood",
+      "kepala_reason": "Skill 'Retaliate' memberikan refleksi damage krusial saat musuh mengeluarkan burst skill.",
+      "dada_name": "Assassin Jacket",
+      "dada_reason": "Skill 'Ambush' memberikan invisibilitas untuk mereset pertarungan atau melarikan diri dengan aman.",
+      "kaki_name": "Soldier Boots",
+      "kaki_reason": "Skill 'Wanderlust' memberikan kecepatan gerak tinggi yang terus bertambah untuk memburu musuh atau melarikan diri.",
+      "senjata_name": "Carving Sword",
+      "senjata_reason": "Memberikan armor reduction (shred) yang sangat kuat untuk menembus pertahanan lawan, ditambah mobilitas yang baik."
+    },
+    "pve": {
+      "kepala_name": "Scholar Cowl",
+      "kepala_reason": "Skill 'Energy Shield' memulihkan mana setiap kali menerima damage dan memberi bonus defense. Sangat penting untuk sustain.",
+      "dada_name": "Cleric Robe",
+      "dada_reason": "Skill 'Everlasting Spirit' memberikan invulnerability (kebal) 3 detik dan boost damage 20% untuk melawan kumpulan mob.",
+      "kaki_name": "Leather Shoes",
+      "kaki_reason": "Gunakan skill aktif 'Refreshing Sprint' untuk mengurangi cooldown semua skill agar rotasi damage lebih cepat.",
+      "senjata_name": "Light Crossbow + Cryptcandle",
+      "senjata_reason": "Memberikan daya ledak AoE (Area) yang sangat tinggi untuk membersihkan dungeon dengan sangat cepat."
+    },
+    "gathering": {
+      "kepala_name": "Miner Cap",
+      "kepala_reason": "Skill 'Motivating Worker' menghapus efek slow dan memberikan kebal CC sesaat. Tombol panik pertama saat di-dismount.",
+      "dada_name": "Miner Garb",
+      "dada_reason": "Skill 'Wind Shield' memantulkan musuh yang mencoba mendekat dan meningkatkan armor secara drastis.",
+      "kaki_name": "Miner Workboots",
+      "kaki_reason": "Skill 'Flee' memberikan tambahan kecepatan lari yang masif (+120%) serta kapasitas beban ekstra agar tidak lambat.",
+      "senjata_name": "Bloodletter + Mistcaller",
+      "senjata_reason": "Gunakan dua skill dash dari Bloodletter hanya untuk kabur, dibantu Mistcaller untuk mempercepat cooldown skill tersebut."
+    }
+  }
+}
+
